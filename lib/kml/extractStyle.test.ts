@@ -41,3 +41,41 @@ describe("extractStyle", () => {
     });
   });
 });
+
+it("passes-through CSS colors (2)", () => {
+  expect(
+    extractStyle(
+      new xmldom.DOMParser().parseFromString(`<Style id="StyleNo1">
+<IconStyle>
+<color>ff000000</color>
+<scale>0.5</scale>
+<Icon>
+<href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>
+</Icon>
+</IconStyle>
+<LabelStyle>
+<color>ff000000</color>
+</LabelStyle>
+<LineStyle>
+<color>ff0000ff</color>
+<width>2</width>
+</LineStyle>
+<PolyStyle>
+<color>7f000000</color>
+</PolyStyle>
+</Style>`).firstChild as Element
+    )
+  ).toEqual({
+    fill: "#000000",
+    "fill-opacity": 0.4980392156862745,
+    icon: "http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png",
+    "icon-color": "#000000",
+    "icon-opacity": 1,
+    "icon-scale": 0.5,
+    "label-color": "#000000",
+    "label-opacity": 1,
+    stroke: "#ff0000",
+    "stroke-opacity": 1,
+    "stroke-width": 2,
+  });
+});

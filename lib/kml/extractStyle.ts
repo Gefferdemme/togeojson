@@ -47,7 +47,7 @@ export function extractLabel(node: Element) {
 export function extractLine(node: Element) {
   return get(node, "LineStyle", (lineStyle) => {
     return Object.assign(
-      getColor(node, "stroke"),
+      getColor(lineStyle, "stroke"),
       numericProperty(lineStyle, "width", "stroke-width")
     );
   });
